@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}DocuMind{% endblock %}</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%23ffffff'/%3E%3Ccircle cx='14.5' cy='14.5' r='6' fill='none' stroke='%230e1014' stroke-width='3'/%3E%3Cpath d='M19 19l5 5' stroke='%230e1014' stroke-width='3' stroke-linecap='round'/%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', path='style.css') }}?v={{ asset_version() }}">
+</head>
+<body data-page="{% block page %}{% endblock %}">
+{% block body %}
+<div class="app">
+  <aside class="sidebar">
+    <a class="brand" href="/">
+      <span class="brand__mark" aria-hidden="true">
+        <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="6"/><path d="M20 20l-4.5-4.5"/></svg>
+      </span>
+      <span class="brand__name">DocuMind</span>
+    </a>
+
+    <button type="button" class="btn btn--secondary btn--block" id="newChatBtn">
+      <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
+      New chat
+    </button>
+
+    <nav class="nav" aria-label="Main">
+      <a href="/chat" class="nav__link {% if active == 'chat' %}nav__link--active{% endif %}">Ask</a>
+      <a href="/documents" class="nav__link {% if active == 'documents' %}nav__link--active{% endif %}">Knowledge base</a>
+    </nav>
+
+    <section class="sidebar__docs" aria-label="Documents">
+      <h2 class="eyebrow">Documents</h2>
+      <ul class="doc-list" id="sidebarDocs"></ul>
+    </section>
+
+    <section class="guest-card">
+      <div class="guest-card__row">
+        <span class="guest-card__title" id="sessionTitle">Guest session</span>
+        <span class="guest-card__count" id="docCount">0 files</span>
+      </div>
+      <p class="guest-card__text" id="sessionText">Your files and chat are kept in this browser, also after a restart.</p>
+      <div class="guest-card__actions">
+        <a class="btn btn--ghost btn--sm" id="exportMd" href="#" download>Export .md</a>
+        <a class="btn btn--ghost btn--sm" id="exportJson" href="#" download>Export .json</a>
+      </div>
+      <button type="button" class="btn btn--danger btn--sm btn--block" id="clearSessionBtn">Clear session</button>
+    </section>
+  </aside>
+
+  <main class="main">
+    {% block main %}{% endblock %}
+  </main>
+</div>
+{% endblock %}
+
+<div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
+<script src="{{ url_for('static', path='app.js') }}?v={{ asset_version() }}" defer></script>
+</body>
+</html>

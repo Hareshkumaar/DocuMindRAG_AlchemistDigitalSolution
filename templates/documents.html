@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+{% block title %}Knowledge base – DocuMind{% endblock %}
+{% block page %}documents{% endblock %}
+
+{% block main %}
+<div class="kb">
+  <section class="kb__content">
+    <header class="kb__header">
+      <div>
+        <h1 class="page-title">Knowledge base</h1>
+        <p class="muted" id="kbStats">No files yet</p>
+      </div>
+      <label class="btn btn--primary">
+        <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 16V4M7 9l5-5 5 5M4 16v3a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-3"/></svg>
+        Upload files
+        <input class="visually-hidden" type="file" id="kbFiles" accept=".pdf,.txt" multiple>
+      </label>
+    </header>
+
+    <div class="table-wrap">
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">Name</th>
+            <th scope="col">Pages</th>
+            <th scope="col">Chunks</th>
+            <th scope="col">Status</th>
+            <th scope="col"><span class="visually-hidden">Actions</span></th>
+          </tr>
+        </thead>
+        <tbody id="docRows"></tbody>
+      </table>
+    </div>
+  </section>
+
+  <aside class="drawer" id="summaryPanel" hidden aria-labelledby="summaryTitle">
+    <header class="drawer__header">
+      <div>
+        <p class="eyebrow">Summary</p>
+        <h2 class="drawer__title" id="summaryTitle"></h2>
+      </div>
+      <button type="button" class="icon-btn" id="closeSummary" aria-label="Close summary">
+        <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
+      </button>
+    </header>
+    <div class="drawer__body markdown" id="summaryBody"></div>
+    <footer class="drawer__actions">
+      <a class="btn btn--primary btn--sm" id="askThisFile" href="/chat">Ask this file</a>
+      <button type="button" class="btn btn--secondary btn--sm" id="regenSummary">Regenerate</button>
+      <button type="button" class="btn btn--secondary btn--sm" id="downloadSummary">Download .md</button>
+    </footer>
+  </aside>
+</div>
+{% endblock %}

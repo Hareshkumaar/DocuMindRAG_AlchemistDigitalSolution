@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+{% block title %}Ask – DocuMind{% endblock %}
+{% block page %}chat{% endblock %}
+
+{% block main %}
+<section class="thread" id="thread" aria-live="polite">
+  <div class="empty-state" id="emptyState">
+    <h1 class="empty-state__title">Ask DocuMind</h1>
+    <p class="empty-state__text" id="emptyText">Ask questions about your documents. Answers come only from your files, with the page they came from.</p>
+    <div class="chips" id="suggestions">
+      <button type="button" class="chip">Summarize the main points</button>
+      <button type="button" class="chip">What are the key rules or policies?</button>
+      <button type="button" class="chip">What deadlines or dates are mentioned?</button>
+    </div>
+  </div>
+</section>
+
+<div class="composer-wrap">
+  <form class="composer" id="askForm">
+    <div class="composer__drop-hint" aria-hidden="true">Drop files to attach</div>
+    <div class="composer__attachments" id="composerAttachments" hidden></div>
+    <label class="visually-hidden" for="question">Ask a question</label>
+    <textarea id="question" class="composer__input" rows="1" maxlength="2000"
+              placeholder="Ask anything or attach a document…"></textarea>
+    <div class="composer__bar">
+      <label class="icon-btn" title="Upload files">
+        <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 11l-8 8a5 5 0 0 1-7-7l8-8a3 3 0 0 1 4 4l-8 8a1 1 0 0 1-1-1l7-7"/></svg>
+        <span class="visually-hidden">Upload files</span>
+        <input class="visually-hidden" type="file" id="chatFiles" accept=".pdf,.txt" multiple>
+      </label>
+      <span class="composer__hint">Enter to send · Shift+Enter for a new line</span>
+      <button type="submit" class="send-btn" id="sendBtn" aria-label="Send">
+        <svg class="icon icon--send" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        <svg class="icon icon--stop" viewBox="0 0 24 24" aria-hidden="true"><rect x="7" y="7" width="10" height="10" rx="1.5"/></svg>
+      </button>
+    </div>
+  </form>
+</div>
+
+<template id="turnTemplate">
+  <article class="turn">
+    <div class="msg msg--user">
+      <div class="msg__attachments" hidden></div>
+      <p class="msg__bubble turn__question"></p>
+    </div>
+    <div class="msg msg--bot">
+      <span class="ai-avatar" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M11 3c.6 4.5 2.5 6.4 7 7-4.5.6-6.4 2.5-7 7-.6-4.5-2.5-6.4-7-7 4.5-.6 6.4-2.5 7-7z"/><path d="M18.5 15c.2 1.3.7 1.8 2 2-1.3.2-1.8.7-2 2-.2-1.3-.7-1.8-2-2 1.3-.2 1.8-.7 2-2z"/></svg></span>
+      <div class="msg__content">
+        <div class="turn__status">
+          <span class="dots" aria-hidden="true"><span></span><span></span><span></span></span>
+          <span>Thinking…</span>
+        </div>
+        <div class="answer">
+          <div class="answer__body"></div>
+          <footer class="answer__foot">
+            <span class="answer__meta"></span>
+            <nav class="refs" aria-label="Sources" hidden></nav>
+          </footer>
+        </div>
+      </div>
+    </div>
+  </article>
+</template>
+{% endblock %}
