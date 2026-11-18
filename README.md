@@ -172,7 +172,8 @@ and (for scanned PDFs) Tesseract OCR.
 
 ```bash
 # 1. Get the code and enter the project folder
-cd documind-app
+git clone https://github.com/Hareshkumaar/DocuMindRAG_AlchemistDigitalSolution.git
+cd DocuMindRAG_AlchemistDigitalSolution
 
 # 2. Optional but recommended: OCR for scanned/image-only PDFs
 sudo apt install -y tesseract-ocr        # macOS: brew install tesseract
